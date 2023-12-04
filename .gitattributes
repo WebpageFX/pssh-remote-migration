@@ -1,0 +1,29 @@
+# https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings?platform=windows
+# Set the default behavior, in case people don't have core.autocrlf set.
+
+# Ensure that when files are checked in, they are normalized to LF line endings
+# Auto will only apply: 1. If Git decides the file is text not binary and 2. The file was **not already in Git with CRLF endings**
+* text=auto
+# * text
+
+# For YAML files, force LF on checkin (text) AND force LF on checkout (eol=lf)
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# For Shell files, force LF on checkin (text) AND force LF on checkout (eol=lf)
+*.sh text eol=lf
+
+# For all files in the .githooks directory, force LF on checkin (text) AND force LF on checkout (eol=lf)
+.githooks/* text eol=lf
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.c text
+*.h text
+
+# Declare files that will always have CRLF line endings on checkout.
+*.sln text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
