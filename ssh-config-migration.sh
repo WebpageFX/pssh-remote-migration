@@ -1,14 +1,24 @@
 #!/bin/bash
 
+# loggedInUser=$(/usr/bin/python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n");')
+loggedInUser=$(/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }')
+
+echo "loggedInUser: $loggedInUser"
+
 # Specify the path to your Git repository
-repositoryPath="$HOME/.pssh"
+repositoryPath="/Users/$loggedInUser/.pssh"
+
+echo "repositoryPath: $repositoryPath"
 
 # Specify the current remote name (e.g., origin) and the new remote URL
 currentRemoteName="sync"
 newRemoteUrl="git@github.com:WebpageFX/webpagefx-ssh-config.git"
 
+echo "currentRemoteName: $currentRemoteName"
+echo "newRemoteUrl: $newRemoteUrl"
+
 # Check if Git is installed
-if command -v pssh > /dev/null 2>&1; then
+if command -v pssh >/dev/null 2>&1; then
     # Change the remote URL
     cd "$repositoryPath" || exit
 
