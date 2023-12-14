@@ -4,9 +4,14 @@ $psshPath = "$HOME\bin\pssh"
 # Specify the path to your Git repository
 $repositoryPath = "$HOME\.pssh"
 
+Write-Host "repositoryPath: $repositoryPath"
+
 # Specify the current remote name (e.g., origin) and the new remote URL
 $currentRemoteName = "sync"
 $newRemoteUrl = "git@github.com:WebpageFX/webpagefx-ssh-config.git"
+
+Write-Host "currentRemoteName: $currentRemoteName"
+Write-Host "newRemoteUrl: $newRemoteUrl"
 
 # Check if pssh is installed
 if (Test-Path -Path $psshPath) {
@@ -26,6 +31,10 @@ if (Test-Path -Path $psshPath) {
         git remote set-url $currentRemoteName $newRemoteUrl
 
         Write-Host "Remote URL changed successfully!"
+		
+		$updatedRemoteUrl = git remote get-url $currentRemoteName
+		Write-Host "Updated Remote URL: $updatedRemoteUrl"
+		
     } else {
         Write-Host "Error: Git repository not found at $repositoryPath"
     }
