@@ -22,6 +22,13 @@ if command -v pssh >/dev/null 2>&1; then
     # Change the remote URL
     cd "$repositoryPath" || exit
 
+    # Set the git repo as a safe directory
+    git config --global --add safe.directory "$repositoryPath"
+
+    # Verify that the git repo was added
+    safe_directory=$(git config --global --get safe.directory)
+    echo "Safe Directory: $safe_directory"
+
     # Verify if the repository exists
     if [ -d ".git" ]; then
         # Get the current remote URL
@@ -35,6 +42,9 @@ if command -v pssh >/dev/null 2>&1; then
         git remote set-url "$currentRemoteName" "$newRemoteUrl"
 
         echo "Remote URL changed successfully!"
+
+        # Remove the git repo as a safe directory
+        git config --global --unset safe.directory "$repositoryPath"
     else
         echo "Error: Git repository not found at $repositoryPath"
     fi
